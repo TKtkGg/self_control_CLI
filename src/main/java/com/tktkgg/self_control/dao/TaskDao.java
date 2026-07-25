@@ -82,12 +82,51 @@ public class TaskDao {
 			}
 		}
 	}
+	
+	public void create(Task task, Connection con) throws SQLException {
+		String sql = "INSERT INTO tasks(schedule_id, start_time, end_time, task_name, memo) VALUES(?, ?, ?, ?, ?)";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, task.getScheduleId());
+			pstmt.setTime(2, Time.valueOf(task.getStartTime()));
+			pstmt.setTime(3, Time.valueOf(task.getEndTime()));
+			pstmt.setString(4, task.getTaskName());
+			pstmt.setString(5, task.getMemo());
+			
+			int count = pstmt.executeUpdate();
+
+			if (count == 0) {
+			    throw new SQLException("作成できませんでした");
+			}
+		}
+	}
 
 	public void update(Task task) throws SQLException {
 		String sql = "UPDATE tasks SET schedule_id = ?, start_time = ?, end_time = ?, task_name = ?, memo = ? WHERE id = ?";
 		
 		try (Connection con = DBConnection.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, task.getScheduleId());
+			pstmt.setTime(2, Time.valueOf(task.getStartTime()));
+			pstmt.setTime(3, Time.valueOf(task.getEndTime()));
+			pstmt.setString(4, task.getTaskName());
+			pstmt.setString(5, task.getMemo());
+			pstmt.setInt(6, task.getId());
+			
+			int count = pstmt.executeUpdate();
+
+			if (count == 0) {
+			    throw new SQLException("更新できませんでした");
+			}
+		}
+	}
+	
+	public void update(Task task, Connection con) throws SQLException {
+		String sql = "UPDATE tasks SET schedule_id = ?, start_time = ?, end_time = ?, task_name = ?, memo = ? WHERE id = ?";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			
 			pstmt.setInt(1, task.getScheduleId());
 			pstmt.setTime(2, Time.valueOf(task.getStartTime()));

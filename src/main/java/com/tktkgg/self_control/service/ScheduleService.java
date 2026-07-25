@@ -1,5 +1,6 @@
 package com.tktkgg.self_control.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import com.tktkgg.self_control.exception.InvalidTimeException;
 import com.tktkgg.self_control.model.Schedule;
 import com.tktkgg.self_control.model.Task;
 import com.tktkgg.self_control.model.User;
+import com.tktkgg.self_control.util.DBConnection;
 import com.tktkgg.self_control.util.SessionManager;
 
 public class ScheduleService {
@@ -68,13 +70,26 @@ public class ScheduleService {
 		if (!task.isTimeValid()) {
 			throw new InvalidTimeException("無効な時間です");
 		}
-		
+		Connection con = null;
 		try {
-			Schedule newSchedule = sd.create(schedule);
+			con = DBConnection.getConnection();
+			con.setAutoCommit(false);
+			
+			Schedule newSchedule = sd.create(schedule, con);
 			task.setScheduleId(newSchedule.getId());
-			td.create(task);
+			td.create(task, con);
+			
+			con.commit();
 		} catch (SQLException e) {
+			if (con != null) {
+				ConnectionService.rollback(con);
+			}
 			throw new DatabaseException(e);
+			
+		} finally {
+			if (con != null) {
+				ConnectionService.close(con);
+			}
 		}
 		
 	}
@@ -92,11 +107,25 @@ public class ScheduleService {
 			throw new InvalidTimeException("無効な時間です");
 		}
 		
+		Connection con = null;
 		try {
-			sd.update(schedule);
-			td.update(task);
+			con = DBConnection.getConnection();
+			con.setAutoCommit(false);
+			
+			sd.update(schedule, con);
+			td.update(task, con);
+			
+			con.commit();
 		} catch (SQLException e) {
+			if (con != null) {
+				ConnectionService.rollback(con);
+			}
 			throw new DatabaseException(e);
+			
+		} finally {
+			if (con != null) {
+				ConnectionService.close(con);
+			}
 		}
 	}
 	

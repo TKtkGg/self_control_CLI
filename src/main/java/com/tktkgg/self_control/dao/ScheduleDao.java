@@ -127,12 +127,55 @@ public class ScheduleDao {
 			
 		}
 	}
+	
+	public Schedule create(Schedule schedule, Connection con) throws SQLException {
+		String sql = "INSERT INTO schedules(user_id, day_of_week, title) VALUES(?, ?, ?)";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+			
+			pstmt.setInt(1, schedule.getUserId());
+			pstmt.setInt(2, schedule.getDayOfWeek().getValue());
+			pstmt.setString(3, schedule.getTitle());
+			
+			int count = pstmt.executeUpdate();
+			if (count == 0) {
+			    throw new SQLException("作成できませんでした");
+			}
+			
+			try (ResultSet rs = pstmt.getGeneratedKeys();) {
+				if (rs.next()) {
+					schedule.setId(rs.getInt(1));
+					return schedule;
+				}
+			}
+			throw new SQLException("IDの取得に失敗しました");
+			
+		}
+	}
 
 	public void update(Schedule schedule) throws SQLException {
 		String sql = "UPDATE schedules SET user_id = ?, day_of_week = ?, title = ? WHERE id = ?";
 		
 		try (Connection con = DBConnection.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, schedule.getUserId());
+			pstmt.setInt(2, schedule.getDayOfWeek().getValue());
+			pstmt.setString(3, schedule.getTitle());
+			pstmt.setInt(4, schedule.getId());
+			
+			int count = pstmt.executeUpdate();
+
+			if (count == 0) {
+			    throw new SQLException("更新できませんでした");
+			}
+		}
+	}
+	
+	public void update(Schedule schedule, Connection con) throws SQLException {
+		String sql = "UPDATE schedules SET user_id = ?, day_of_week = ?, title = ? WHERE id = ?";
+		
+		try (PreparedStatement pstmt = con.prepareStatement(sql)) {
 			
 			pstmt.setInt(1, schedule.getUserId());
 			pstmt.setInt(2, schedule.getDayOfWeek().getValue());
