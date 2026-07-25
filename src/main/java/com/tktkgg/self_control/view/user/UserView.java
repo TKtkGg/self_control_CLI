@@ -50,6 +50,11 @@ public class UserView {
 				if (ViewUtils.confirm("「いいね！」")) {
 					ls.like(schedule.getId());
 				}
+			} else {
+				System.out.println("このユーザーのスケジュールの「いいね！」を外しますか？（1:はい 2:いいえ）");
+				if (ViewUtils.confirm("「いいね！」を解除")) {
+					ls.unlike(schedule.getId());
+				}
 			}
 		}
 	}
