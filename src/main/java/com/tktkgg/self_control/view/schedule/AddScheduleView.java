@@ -6,6 +6,7 @@ import com.tktkgg.self_control.exception.InvalidTimeException;
 import com.tktkgg.self_control.model.Schedule;
 import com.tktkgg.self_control.model.Task;
 import com.tktkgg.self_control.service.ScheduleService;
+import com.tktkgg.self_control.service.ScheduleTaskService;
 import com.tktkgg.self_control.service.TaskService;
 import com.tktkgg.self_control.util.InputUtils;
 import com.tktkgg.self_control.util.SessionManager;
@@ -14,6 +15,7 @@ import com.tktkgg.self_control.view.ViewUtils;
 
 public class AddScheduleView implements MenuAction {
 	private final ScheduleService ss = new ScheduleService();
+	private final ScheduleTaskService sts = new ScheduleTaskService();
 	private final TaskService ts = new TaskService();
 	private final ScheduleInputView siv = new ScheduleInputView();
 	
@@ -38,7 +40,7 @@ public class AddScheduleView implements MenuAction {
 		if (ViewUtils.confirm("作成")) {
 			try {
 				if (schedule == null) {
-					ss.createSchedule(newSchedule, newTask);
+					sts.createSchedule(newSchedule, newTask);
 				} else {
 					newTask.setScheduleId(schedule.getId());
 					ts.createTask(newTask);

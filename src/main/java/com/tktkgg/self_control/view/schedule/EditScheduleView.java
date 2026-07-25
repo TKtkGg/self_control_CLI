@@ -7,6 +7,7 @@ import com.tktkgg.self_control.exception.InvalidTimeException;
 import com.tktkgg.self_control.model.Schedule;
 import com.tktkgg.self_control.model.Task;
 import com.tktkgg.self_control.service.ScheduleService;
+import com.tktkgg.self_control.service.ScheduleTaskService;
 import com.tktkgg.self_control.service.TaskService;
 import com.tktkgg.self_control.util.Input;
 import com.tktkgg.self_control.util.InputUtils;
@@ -16,6 +17,7 @@ import com.tktkgg.self_control.view.ViewUtils;
 
 public class EditScheduleView implements MenuAction {
 	private final ScheduleService ss = new ScheduleService();
+	private final ScheduleTaskService sts = new ScheduleTaskService();
 	private final TaskService ts = new TaskService();
 	private final ScheduleInputView siv = new ScheduleInputView();
 	
@@ -64,7 +66,7 @@ public class EditScheduleView implements MenuAction {
 			newTask.setId(task.getId());
 			newTask.setScheduleId(newSchedule.getId());
 			try {
-				ss.updateSchedule(newSchedule, newTask);
+				sts.updateSchedule(newSchedule, newTask);
 			} catch (InvalidTimeException e) {
 				System.out.println(e.getMessage());
 			}
