@@ -43,16 +43,22 @@ public class EditScheduleView implements MenuAction {
 		
 		String title = siv.inputTitle(schedule.getTitle());
 		
-		ViewUtils.viewTaskWithId(tasks);
+		ViewUtils.viewTaskWithNumber(tasks);
 		System.out.println("どのタスクを編集しますか？（番号を入力）");
 		
 		Task task = null;
 		while (true) {
-			int id = Input.nextInt();
+			int num = Input.nextInt();
 			
-			task = ts.getTask(id);
+			try {
+				task = tasks.get(num - 1);
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println("存在しない番号です。");
+				continue;
+			}
+			
 			if (task == null || !task.belongsTo(schedule)) {
-				System.out.println("存在しないIDです。");
+				System.out.println("存在しないタスクです。");
 				continue;
 			} else {
 				break;

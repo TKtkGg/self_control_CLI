@@ -17,11 +17,11 @@ public class ViewUtils {
 		}
 	}
 	
-	public static void viewTaskWithId(List<Task> tasks) {
-		for (Task task : tasks) {
-			System.out.println(task.getId());
-			System.out.println(task.getTaskName());
-			System.out.println(task.getTimeRange());
+	public static void viewTaskWithNumber(List<Task> tasks) {
+		for (int i = 0; i < tasks.size(); i++) {
+			System.out.print(i + 1 + ". ");
+			System.out.println(tasks.get(i).getTaskName());
+			System.out.println(tasks.get(i).getTimeRange());
 			System.out.println();
 		}
 	}
