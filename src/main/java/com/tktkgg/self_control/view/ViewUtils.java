@@ -57,4 +57,18 @@ public class ViewUtils {
 	        }  
 	    }
 	}
+	
+	public static boolean confirm() {
+		while (true) {
+	        int input = Input.nextInt();
+	        
+	        if (input == 1) {
+	        	return true;
+	        } else if (input == 2) {
+	        	return false;
+	        } else {
+	        	System.out.println("1か2を入力してください。");
+	        }  
+	    }
+	}
 }
