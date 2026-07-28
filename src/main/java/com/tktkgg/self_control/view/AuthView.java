@@ -9,7 +9,7 @@ public class AuthView {
 	
 	public void startView() {
 		while(true) {
-			System.out.println("1.ログイン\n2.サインアップ");
+			System.out.println("1:ログイン\n2:サインアップ");
 			int choice = Input.nextInt();
 			
 			if (choice == 1) {
@@ -30,15 +30,16 @@ public class AuthView {
 	}
 	
 	public boolean loginView() {
-		System.out.println("メールアドレスとパスワードを入力してください（qで戻る）");
+		System.out.println("メールアドレスとパスワードを入力してください（0で戻る）");
 		
 		while(true) {
 			System.out.print("メールアドレス：");
 			String email = Input.next();
-			if (email.equals("q")) return true;
+			if (email.equals("0")) return true;
 			
 			System.out.print("パスワード：");
 			String password = Input.next();
+			if (password.equals("0")) return true;
 			
 			if (as.login(email, password)) {
 				System.out.println("ログインに成功しました。");
@@ -51,18 +52,20 @@ public class AuthView {
 	}
 	
 	public boolean signupView() {
-		System.out.println("ユーザーネーム、メールアドレス、パスワードを入力してください。（qで戻る）");
+		System.out.println("ユーザーネーム、メールアドレス、パスワードを入力してください。（0で戻る）");
 		
 		while(true) {
 			System.out.print("ユーザーネーム：");
 			String username = Input.next();
-			if (username.equals("q")) return true;
+			if (username.equals("0")) return true;
 			
 			System.out.print("メールアドレス：");
 			String email = Input.next();
+			if (email.equals("0")) return true;
 			
 			System.out.print("パスワード：");
 			String password = Input.next();
+			if (password.equals("0")) return true;
 			
 			User user = new User(username, email, password);
 			as.signup(user);

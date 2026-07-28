@@ -26,7 +26,7 @@ public class Main {
 				System.out.println("データベースエラーが発生しました");
 			}
 			
-			System.out.println("アプリケーションを終了しますか？(1.はい 2.いいえ)");
+			System.out.println("アプリケーションを終了しますか？(1:はい 2:いいえ)");
 			int isFinish = Input.nextInt();
 			if (isFinish == 1) {
 				break;
@@ -34,9 +34,6 @@ public class Main {
 				continue;
 			}
 		}
-		
-		
-		System.out.println("成功");
+		System.out.println("アプリケーションを終了しました");
 	}
-
 }

@@ -27,7 +27,7 @@ public class HomeView {
 	public void homeView() {
 		while(true) {
 			System.out.println("ホーム");
-			System.out.println("1.今日のスケジュールの確認\n2.スケジュールの確認\n3.スケジュールの編集\n4.スケジュールの追加\n5.ユーザー一覧\n6.スケジュール/タスクの削除\n7.ログアウト");
+			System.out.println("1:今日のスケジュールの確認\n2:スケジュールの確認\n3:スケジュールの編集\n4:スケジュールの追加\n5:ユーザー一覧\n6:スケジュール/タスクの削除\n7:ログアウト");
 			
 			menu.get(Input.nextInt()).execute();
 			
