@@ -11,7 +11,7 @@ public class AlarmTask implements Runnable {
 	
 	@Override
 	public void run() {
-		as.checkAlarm();
+		showAlarm();
 	}
 	
 	public void showAlarm() {

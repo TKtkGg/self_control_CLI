@@ -1,6 +1,8 @@
 package com.tktkgg.self_control;
 
+import com.tktkgg.self_control.alarm.AlarmManager;
 import com.tktkgg.self_control.exception.DatabaseException;
+import com.tktkgg.self_control.service.AlarmService;
 import com.tktkgg.self_control.util.Input;
 import com.tktkgg.self_control.view.AuthView;
 import com.tktkgg.self_control.view.HomeView;
@@ -13,7 +15,13 @@ public class Main {
 		while(true) {
 			try {
 				authView.startView();
+				
+				AlarmManager alarmManager = new AlarmManager(new AlarmService());
+		        alarmManager.start();
+		        
 				homeView.homeView();
+				
+				alarmManager.stop();
 			} catch (DatabaseException e) {
 				System.out.println("データベースエラーが発生しました");
 			}

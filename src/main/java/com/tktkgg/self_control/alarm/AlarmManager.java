@@ -7,8 +7,12 @@ import java.util.concurrent.TimeUnit;
 import com.tktkgg.self_control.service.AlarmService;
 
 public class AlarmManager {
-	private final AlarmService as = new AlarmService();
+	private final AlarmService as;
 	private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+	
+	public AlarmManager(AlarmService as) {
+		this.as = as;
+	}
 	
 	public void start() {
 		scheduler.scheduleAtFixedRate(
