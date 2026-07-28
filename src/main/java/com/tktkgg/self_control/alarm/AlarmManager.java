@@ -12,7 +12,7 @@ public class AlarmManager {
 	
 	public void start() {
 		scheduler.scheduleAtFixedRate(
-	        as::checkAlarm,
+	        new AlarmTask(as),
 	        0,
 	        1,
 	        TimeUnit.SECONDS

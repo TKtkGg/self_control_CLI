@@ -17,16 +17,16 @@ public class AlarmService {
 		List<Task> tasks = ts.getTasks(schedule.getId());
 		
 		LocalTime currentTime = LocalTime.now();
-		currentTime.truncatedTo(ChronoUnit.SECONDS);
+		currentTime = currentTime.truncatedTo(ChronoUnit.SECONDS);
 		
 		for (Task task : tasks) {
 			LocalTime taskTime = task.getStartTime();
 			
 			if (taskTime.equals(currentTime)) {
-				return Optional.ofNullable(task);
+				return Optional.of(task);
 			}
 		}
 		
-		return null;
+		return Optional.empty();
 	}
 }
