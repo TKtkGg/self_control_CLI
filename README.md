@@ -1,4 +1,4 @@
-# self_control
+# self_control (CLI Application)
 
 ## プロジェクト概要
 
