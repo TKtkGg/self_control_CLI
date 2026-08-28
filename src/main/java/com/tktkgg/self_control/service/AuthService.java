@@ -9,6 +9,7 @@ import com.tktkgg.self_control.util.SessionManager;
 
 public class AuthService {
 	private final UserDao ud = new UserDao();
+	private final ProfileService ps = new ProfileService();
 	
 	public boolean login(String email, String password) {
 		User user = null;
@@ -30,7 +31,8 @@ public class AuthService {
 	
 	public void signup(User user) {
 		try {
-			ud.create(user);
+			User newUser = ud.create(user);
+			ps.createProfile(newUser.getId(), "", "", 0);
 		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}

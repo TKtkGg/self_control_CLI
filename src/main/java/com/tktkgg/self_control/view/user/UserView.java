@@ -3,10 +3,12 @@ package com.tktkgg.self_control.view.user;
 import java.time.DayOfWeek;
 import java.util.List;
 
+import com.tktkgg.self_control.model.Profile;
 import com.tktkgg.self_control.model.Schedule;
 import com.tktkgg.self_control.model.Task;
 import com.tktkgg.self_control.model.User;
 import com.tktkgg.self_control.service.LikeService;
+import com.tktkgg.self_control.service.ProfileService;
 import com.tktkgg.self_control.service.ScheduleService;
 import com.tktkgg.self_control.service.TaskService;
 import com.tktkgg.self_control.util.InputUtils;
@@ -17,10 +19,17 @@ public class UserView {
 	private final ScheduleService ss = new ScheduleService();
 	private final TaskService ts = new TaskService();
 	private final LikeService ls = new LikeService();
+	private final ProfileService ps = new ProfileService();
 	
 	public void userView(User user) {
+		Profile profile = ps.getProfile(user.getId());
+		
 		System.out.println("No." + user.getId());
 		System.out.println(user.getUsername());
+		System.out.println("自己紹介：" + profile.getBio());
+		System.out.println("職業：" + profile.getJob());
+		System.out.println("年齢：" + profile.getAge());
+		
 		while (true) {
 			System.out.println("どのスケジュールを確認しますか（1:月 2:火 3:水 4:木 5:金 6:土 7:日）（0で戻る）");
 			int i = InputUtils.inputWeek();
