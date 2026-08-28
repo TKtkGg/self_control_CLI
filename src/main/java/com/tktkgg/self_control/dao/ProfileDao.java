@@ -37,7 +37,7 @@ public class ProfileDao {
 		}
 	}
 	
-	public Profile create(Profile profile) throws SQLException {
+	public void create(Profile profile) throws SQLException {
 		String sql = "INSERT INTO profiles (user_id, bio, job, age) VALUES (?, ?, ?, ?)";
 		
 		try(Connection con = DBConnection.getConnection();
@@ -52,15 +52,6 @@ public class ProfileDao {
 			if (count == 0) {
 				throw new SQLException("作成できませんでした");
 			}
-			
-			try (ResultSet rs = pstmt.getGeneratedKeys()) {
-				if (rs.next()) {
-					profile.setUserId(rs.getInt(1));
-					return profile;
-				}
-			}
-			
-			throw new SQLException("IDの取得に失敗しました");
 		}
 	}
 	

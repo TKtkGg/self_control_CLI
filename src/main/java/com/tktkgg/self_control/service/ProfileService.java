@@ -17,9 +17,9 @@ public class ProfileService {
 		}
 	}
 
-	public Profile createProfile(int userId, String bio, String job, int age) {
+	public void createProfile(int userId, String bio, String job, int age) {
 		try {
-			return pd.create(new Profile(userId, bio, job, age));
+			pd.create(new Profile(userId, bio, job, age));
 		} catch (SQLException e) {
 			throw new DatabaseException(e);
 		}

@@ -76,7 +76,7 @@ public class UserDao {
 		}
 	}
 	
-	public void create(User user) throws SQLException {
+	public User create(User user) throws SQLException {
 		String sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
 		
 		try (Connection con = DBConnection.getConnection();
@@ -94,7 +94,7 @@ public class UserDao {
 			try (ResultSet rs = pstmt.getGeneratedKeys()) {
 				if (rs.next()) {
 					user.setId(rs.getInt(1));
-					return;
+					return user;
 				}
 			}
 			throw new SQLException("IDの取得に失敗しました");
