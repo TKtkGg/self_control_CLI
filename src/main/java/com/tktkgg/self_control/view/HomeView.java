@@ -9,6 +9,7 @@ import com.tktkgg.self_control.view.schedule.AddScheduleView;
 import com.tktkgg.self_control.view.schedule.CheckScheduleView;
 import com.tktkgg.self_control.view.schedule.DeleteScheduleTaskView;
 import com.tktkgg.self_control.view.schedule.EditScheduleView;
+import com.tktkgg.self_control.view.user.EditProfileView;
 import com.tktkgg.self_control.view.user.UsersView;
 
 public class HomeView {
@@ -19,15 +20,25 @@ public class HomeView {
 		menu.put(2, new CheckScheduleView(false));
 		menu.put(3, new EditScheduleView());
 		menu.put(4, new AddScheduleView());
-		menu.put(5, new UsersView());
-		menu.put(6, new DeleteScheduleTaskView());
-		menu.put(7, new LogoutView());
+		menu.put(5, new DeleteScheduleTaskView());
+		menu.put(6, new UsersView());
+		menu.put(7, new EditProfileView());
+		menu.put(8, new LogoutView());
 	}
 	
 	public void homeView() {
 		while(true) {
 			System.out.println("ホーム");
-			System.out.println("1.今日のスケジュールの確認\n2.スケジュールの確認\n3.スケジュールの編集\n4.スケジュールの追加\n5.ユーザー一覧\n6.スケジュール/タスクの削除\n7.ログアウト");
+			System.out.println(""
+					+ "1.今日のスケジュールの確認"
+					+ "\n2.スケジュールの確認"
+					+ "\n3.スケジュールの編集"
+					+ "\n4.スケジュールの追加"
+					+ "\n5.スケジュール/タスクの削除"
+					+ "\n6.ユーザー一覧"
+					+ "\n7.プロフィール編集"
+					+ "\n8.ログアウト"
+					+ "\n9.アカウント削除");
 			
 			menu.get(Input.nextInt()).execute();
 			
