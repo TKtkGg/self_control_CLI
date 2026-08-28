@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.tktkgg.self_control.util.Input;
 import com.tktkgg.self_control.util.SessionManager;
+import com.tktkgg.self_control.view.auth.AccountDeleteView;
+import com.tktkgg.self_control.view.auth.LogoutView;
 import com.tktkgg.self_control.view.schedule.AddScheduleView;
 import com.tktkgg.self_control.view.schedule.CheckScheduleView;
 import com.tktkgg.self_control.view.schedule.DeleteScheduleTaskView;
@@ -24,6 +26,7 @@ public class HomeView {
 		menu.put(6, new UsersView());
 		menu.put(7, new EditProfileView());
 		menu.put(8, new LogoutView());
+		menu.put(9, new AccountDeleteView());
 	}
 	
 	public void homeView() {

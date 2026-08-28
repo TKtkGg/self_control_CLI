@@ -38,4 +38,12 @@ public class UserService {
 	public User getCurrentUser(){
 		return SessionManager.getUser();
 	}
+	
+	public void deleteUser(int id) {
+		try {
+			ud.delete(id);
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
+	}
 }

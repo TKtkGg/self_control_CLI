@@ -4,8 +4,8 @@ import com.tktkgg.self_control.alarm.AlarmManager;
 import com.tktkgg.self_control.exception.DatabaseException;
 import com.tktkgg.self_control.service.AlarmService;
 import com.tktkgg.self_control.util.Input;
-import com.tktkgg.self_control.view.AuthView;
 import com.tktkgg.self_control.view.HomeView;
+import com.tktkgg.self_control.view.auth.AuthView;
 
 public class Main {
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.tktkgg.self_control.view;
+package com.tktkgg.self_control.view.auth;
 
 import com.tktkgg.self_control.model.User;
 import com.tktkgg.self_control.service.AuthService;
