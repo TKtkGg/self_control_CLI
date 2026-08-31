@@ -26,6 +26,14 @@ public class TaskService {
 		}
 	}
 	
+	public List<Task> searchTasks(String title) {
+		try {
+			return td.findByTitle(title);
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
+	}
+	
 	public void createTask(Task task) {
 		try {
 			td.create(task);
