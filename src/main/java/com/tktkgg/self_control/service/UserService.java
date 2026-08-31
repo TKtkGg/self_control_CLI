@@ -39,6 +39,14 @@ public class UserService {
 		return SessionManager.getUser();
 	}
 	
+	public List<User> searchUsers(String username) {
+		try {
+			return ud.findByUsername(username);
+		} catch (SQLException e) {
+			throw new DatabaseException(e);
+		}
+	}
+	
 	public void deleteUser(int id) {
 		try {
 			ud.delete(id);
