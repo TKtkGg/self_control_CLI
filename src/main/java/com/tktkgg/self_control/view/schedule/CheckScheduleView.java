@@ -7,6 +7,7 @@ import com.tktkgg.self_control.model.Schedule;
 import com.tktkgg.self_control.model.Task;
 import com.tktkgg.self_control.service.ScheduleService;
 import com.tktkgg.self_control.service.TaskService;
+import com.tktkgg.self_control.util.Input;
 import com.tktkgg.self_control.util.InputUtils;
 import com.tktkgg.self_control.view.MenuAction;
 import com.tktkgg.self_control.view.ViewUtils;
@@ -25,13 +26,21 @@ public class CheckScheduleView implements MenuAction {
 		if (isToday) {
 			schedule = ss.getTodaySchedule();
 		} else {
-			System.out.println("何曜日のスケジュールを確認しますか？（1:月 2:火 3:水 4:木 5:金 6:土 7:日）（0で戻る）");
-			int i = InputUtils.inputWeek();
-			if (i == 0) return null;
+			System.out.println("タスクを検索しますか？（1:はい 2:いいえ）");
 			
-			DayOfWeek day = DayOfWeek.of(i);
-			
-			schedule = ss.getSpecificSchedule(day);
+			if (ViewUtils.confirm()) {
+				schedule = new Schedule(0, 0, null, "検索");
+				return schedule;
+			} else {
+				System.out.println("何曜日のスケジュールを確認しますか？（1:月 2:火 3:水 4:木 5:金 6:土 7:日）（0で戻る）");
+				
+				int i = InputUtils.inputWeek();
+				if (i == 0) return null;
+				
+				DayOfWeek day = DayOfWeek.of(i);
+				
+				schedule = ss.getSpecificSchedule(day);
+			}
 		}
 		
 		if (schedule == null) {
@@ -46,16 +55,25 @@ public class CheckScheduleView implements MenuAction {
 		List<Task> tasks = null;
 		
 		schedule = selectSchedule(isToday);
-		if (schedule == null) {
-			return;
+		if (schedule == null) return;
+		
+		if (schedule.getTitle() == "検索") {
+			System.out.println("検索するタスク名を入力してください（0で戻る）");
+			String taskName = Input.nextLine();
+			if (taskName.equals("0")) return;
+			
+			tasks = ts.searchTasks(taskName);
+			if (tasks.isEmpty()) {
+				System.out.println("該当するタスクがありません");
+				return;
+			}
+			System.out.println();
+			ViewUtils.viewTaskWithNumber(tasks);
+		} else {
+			tasks = ts.getTasks(schedule.getId());
+			System.out.println();
+			ViewUtils.viewTitle(schedule, tasks);
 		}
-		
-		tasks = ts.getTasks(schedule.getId());
-		
-		System.out.println();
-		
-		ViewUtils.viewTitle(schedule, tasks);
-		
 		System.out.println();
 	}
 }

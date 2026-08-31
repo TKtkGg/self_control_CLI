@@ -58,6 +58,27 @@ public class UserDao {
 		}	
 	}
 	
+	public List<User> findByUsername(String username) throws SQLException {
+		List<User> userList = new ArrayList<User>();
+		String sql = "SELECT * FROM users WHERE username ILIKE ?";
+		
+		try (Connection con = DBConnection.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			
+			pstmt.setString(1, "%" + username + "%");
+			
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					userList.add(
+						mapUser(rs)
+					);
+				}
+			}
+			
+			return userList;
+		}
+	}
+	
 	public List<User> findAll() throws SQLException {
 		List<User> userList = new ArrayList<User>();
 		String sql = "SELECT * FROM users ORDER BY id";

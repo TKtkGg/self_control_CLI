@@ -14,8 +14,24 @@ public class UsersView implements MenuAction {
 	
 	@Override
 	public void execute() {
-		List<User> users = us.getUsers();
+		List<User> users;
 		while (true) {
+			System.out.println("検索しますか？(1:はい 2:いいえ)");
+			
+			if (ViewUtils.confirm()) {
+				System.out.println("検索するユーザー名を入力してください（0で戻る）");
+				String username = Input.next();
+				if (username.equals("0")) return;
+				
+				users = us.searchUsers(username);
+				if (users.isEmpty()) {
+					System.out.println("該当するユーザーがいません");
+					continue;
+				}
+			} else {
+				users = us.getUsers();
+			}
+			
 			System.out.println("ユーザーを選択してください（番号を入力）（0で戻る）");
 			System.out.println();
 			
@@ -26,7 +42,7 @@ public class UsersView implements MenuAction {
 				num = Input.nextInt();
 				if (num == 0) return;
 				
-				User user = us.getUser(num);
+				User user = us.getUser(users.get(num - 1).getId());
 				
 				if (user == null) {
 					System.out.println("存在しないユーザーです");

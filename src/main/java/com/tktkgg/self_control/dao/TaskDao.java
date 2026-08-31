@@ -63,6 +63,28 @@ public class TaskDao {
 		}
 	}
 	
+	public List<Task> findByTitle(String title) throws SQLException {
+		List<Task> taskList = new ArrayList<Task>();
+		
+		String sql = "SELECT * FROM tasks WHERE task_name LIKE ? ORDER BY start_time";
+		
+		try(Connection con = DBConnection.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setString(1, "%" + title + "%");
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					taskList.add(
+						mapTask(rs)
+					);
+				}
+				
+				return taskList;
+			}
+		}
+	}
+	
 	public void create(Task task) throws SQLException {
 		String sql = "INSERT INTO tasks(schedule_id, start_time, end_time, task_name, memo) VALUES(?, ?, ?, ?, ?)";
 		

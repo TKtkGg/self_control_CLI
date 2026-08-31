@@ -27,9 +27,9 @@ public class ViewUtils {
 	}
 	
 	public static void viewUsers(List<User> users) {
-		for (User user : users) {
-			System.out.println("No." + user.getId());
-			System.out.println(user.getUsername());
+		for (int i = 0; i < users.size(); i++) {
+			System.out.println("No." + (i + 1));
+			System.out.println(users.get(i).getUsername());
 			System.out.println();
 		}
 	}
