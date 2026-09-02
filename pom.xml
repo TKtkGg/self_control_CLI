@@ -4,6 +4,8 @@
   <artifactId>self_control</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   
+  <maven.compiler.release>17</maven.compiler.release>
+  
   <dependencies>
   	<dependency>
 	    <groupId>org.postgresql</groupId>
